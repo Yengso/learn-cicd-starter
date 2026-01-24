@@ -33,9 +33,8 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
-			port = "8080"
+		port = "8080"
 	}
-	
 
 	apiCfg := apiConfig{}
 
@@ -93,10 +92,10 @@ func main() {
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: router,
-		
+
 		ReadHeaderTimeout: 5 * time.Second,
-	    ReadTimeout:       45 * time.Second,
-    	WriteTimeout:      45 * time.Second,
+		ReadTimeout:       45 * time.Second,
+		WriteTimeout:      45 * time.Second,
 	}
 
 	log.Printf("Serving on port: %s\n", port)
