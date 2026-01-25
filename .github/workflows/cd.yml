@@ -32,3 +32,6 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
+
+      - name: Build GCP Docker image
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/quick-howl-485414-j9/notely-ar-repo/notely:v1 .
