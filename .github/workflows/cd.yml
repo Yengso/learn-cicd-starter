@@ -45,6 +45,7 @@ jobs:
       - name: Migrate
         run: ./scripts/migrateup.sh
 
+        
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image us-central1-docker.pkg.dev/quick-howl-485414-j9/notely-ar-repo/notely:v1 --region us-central1 --allow-unauthenticated --project quick-howl-485414-j9 --max-instances=4
 
