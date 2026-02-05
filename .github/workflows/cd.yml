@@ -33,4 +33,4 @@ jobs:
         run: ./scripts/migrateup.sh
 
       - name: Deploy to Cloud Run
-        run: echo "Skipping real Cloud Run deploy"
+        run: echo "Skipping real Cloud Run deploy."
