@@ -8,9 +8,10 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    
-    steps:
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
+    steps:
       - name: Check out code
         uses: actions/checkout@v4
 
@@ -22,26 +23,14 @@ jobs:
       - name: Build app
         run: ./scripts/buildprod.sh
 
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: Install goose
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v3'
+      - name: Build and push Docker image
+        run: echo "Skipping real Docker build and push"
 
-      - name: 'Use gcloud CLI'
-        run: 'gcloud info'
+      - name: Run migrations
+        run: ./scripts/migrateup.sh
 
-      - name: Build GCP Docker image
-        run: gcloud builds submit --tag us-central1-docker.pkg.dev/quick-howl-485414-j9/notely-ar-repo/notely:v1 .
-        
-
-        
       - name: Deploy to Cloud Run
-        run: gcloud run deploy notely --image us-central1-docker.pkg.dev/quick-howl-485414-j9/notely-ar-repo/notely:v1 --region us-central1 --allow-unauthenticated --project quick-howl-485414-j9 --max-instances=4
-
-
-
-
-
+        run: echo "Skipping real Cloud Run deploy"
